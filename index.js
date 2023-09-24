@@ -22,7 +22,7 @@ app.get('/pinFileToIPFS', async (req, res) => {
   try {
     console.log(contractABI);
     let data = new FormData();
-    data.append('file', fs.createReadStream('./public/assets/cyclone.png'));
+    data.append('file', fs.createReadStream('./public/assets/Cyclone.png'));
     data.append('pinataMetadata', '{"name": "pinnie"}');
 
     const response = await axios.post('https://api.pinata.cloud/pinning/pinFileToIPFS', data, {
