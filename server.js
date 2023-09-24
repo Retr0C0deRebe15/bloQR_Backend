@@ -9,7 +9,7 @@ module.exports = async (req, res) => {
   try {
     console.log(contractABI)
     let data = new FormData();
-    data.append('file', fs.createReadStream(path.join(process.cwd(), 'public', 'assets', 'cyclone.png')));
+    data.append('file', fs.createReadStream('./public/assets/cyclone.png'));
     data.append('pinataOptions', '{"cidVersion": 0}');
     data.append('pinataMetadata', '{"name": "pinnie"}');
 
