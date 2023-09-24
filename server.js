@@ -1,26 +1,16 @@
-const express = require('express');
 const axios = require('axios');
 const FormData = require('form-data');
 const fs = require('fs');
-require('dotenv').config();
 const contractABI = require('./Abi'); 
 const Web3 = require('web3');
 const path = require('path');
-alert('hi')
-const app = express();
-//const web3 = new Web3('https://mainnet.infura.io/v3/YOUR_INFURA_PROJECT_ID');
 
-// Add this line to intercept and log requests
-axios.interceptors.request.use(request => {
-  console.log(request);
-  return request;
-});
-
-app.get('/pinFileToIPFS', async (req, res) => {
+module.exports = async (req, res) => {
   try {
     console.log(contractABI)
     let data = new FormData();
-    data.append('file', fs.createReadStream(path.join(__dirname, 'public', 'assets', 'cyclone.png')));    data.append('pinataOptions', '{"cidVersion": 0}');
+    data.append('file', fs.createReadStream(path.join(process.cwd(), 'public', 'assets', 'cyclone.png')));
+    data.append('pinataOptions', '{"cidVersion": 0}');
     data.append('pinataMetadata', '{"name": "pinnie"}');
 
     const response = await axios.post('https://api.pinata.cloud/pinning/pinFileToIPFS', data, {
@@ -37,21 +27,4 @@ app.get('/pinFileToIPFS', async (req, res) => {
     console.log(error);
     res.status(500).send("An error occurred while pinning the file to IPFS.");
   }
-});
-
-// app.get('/fetchNFTMetadata/:contractAddress/:tokenId', async (req, res) => {
-//     try {
-//         const { contractAddress, tokenId } = req.params;
-//         const contract = new web3.eth.Contract(ContractABI, contractAddress);
-//         const tokenURI = await contract.methods.tokenURI(tokenId).call();
-//         const metadata = await axios.get(tokenURI);
-        
-//         res.send(metadata.data);
-//     } catch (error) {
-//         console.log(error);
-//         res.status(500).send("An error occurred while fetching the NFT metadata.");
-//     }
-// });
-
-const port = 3000;
-app.listen(port, () => console.log(`Server listening on port ${port}`));
+};
