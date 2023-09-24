@@ -20,7 +20,7 @@ app.get("/", (req, res) => {
 
 app.get('/pinFileToIPFS', async (req, res) => {
   try {
-    console.log(contractABI)
+    console.log(contractABI);
     let data = new FormData();
     data.append('file', fs.createReadStream(path.join(process.cwd(), 'public', 'assets', 'cyclone.png')));
     data.append('pinataMetadata', '{"name": "pinnie"}');
