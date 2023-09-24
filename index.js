@@ -18,12 +18,12 @@ app.get("/", (req, res) => {
 });
 
 
-app.get('/pinFileToIPFS', async (req, res) => {
+app.post('/pinFileToIPFS', async (req, res) => {
   try {
     console.log(contractABI);
     let data = new FormData();
     data.append('file', fs.createReadStream(path.join(process.cwd(), 'public', 'assets', 'Cyclone.png')));
-    data.append('pinataMetadata', '{"name": "pinnie"}');
+    data.append('pinataMetadata', req.body.pinataMetadata); // Use JSON payload from request
 
     const response = await axios.post('https://api.pinata.cloud/pinning/pinFileToIPFS', data, {
       headers: {
@@ -40,6 +40,7 @@ app.get('/pinFileToIPFS', async (req, res) => {
     res.status(500).send("An error occurred while pinning the file to IPFS.");
   }
 });
+
 
 
 // Initialize server
