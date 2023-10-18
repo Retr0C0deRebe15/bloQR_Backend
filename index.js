@@ -6,6 +6,12 @@ require('dotenv').config();
 const contractABI = require('./Abi'); 
 const Web3 = require('web3');
 const path = require('path');
+
+
+const cors=require('cors');
+
+
+
 // Initialize Express
 const app = express();
 // axios.interceptors.request.use(request => {
@@ -13,6 +19,38 @@ const app = express();
 //   return request;
 // });
 // Create GET request
+
+
+
+
+
+
+
+/////////new code
+app.use(cors());
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "blo-qr.vercel.app"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+// app.get('/', function(req, res, next) {
+//   // Handle the get for this route
+// });
+
+// app.post('/', function(req, res, next) {
+//  // Handle the post for this route
+// });
+
+////////////
+
+
+
+
+
+
+
 app.get("/", (req, res) => {
   res.send("Express on Vercel");
 });
